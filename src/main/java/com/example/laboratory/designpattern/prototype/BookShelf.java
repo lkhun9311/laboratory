@@ -9,7 +9,7 @@ import java.util.ArrayList;
 @Getter
 @Setter
 @ToString
-public class BookShelf implements Cloneable {
+public class BookShelf {
 
     private ArrayList<Book> originBookShelf;
 
@@ -21,15 +21,11 @@ public class BookShelf implements Cloneable {
         originBookShelf.add(book);
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        // 새로운 BookShelf 객체 생성, 초기화
-        // Deep Copy 수행 (Default : Shallow Copy)
-        BookShelf newBookShelf = new BookShelf();
-        for (Book originBook : originBookShelf) {
-            newBookShelf.addBook(new Book(originBook.getAuthor(), originBook.getTitle()));
+    // 생성자를 활용해 객체 복사 (Deep Copy)
+    public BookShelf(BookShelf originBookShelf) {
+        this.originBookShelf = new ArrayList<>();
+        for (Book originBook : originBookShelf.getOriginBookShelf()) {
+            this.originBookShelf.add(new Book(originBook));
         }
-
-        return newBookShelf;
     }
 }

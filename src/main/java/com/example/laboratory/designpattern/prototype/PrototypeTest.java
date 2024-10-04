@@ -2,7 +2,7 @@ package com.example.laboratory.designpattern.prototype;
 
 public class PrototypeTest {
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) {
 
         BookShelf originBookShelf = new BookShelf();
 
@@ -10,13 +10,15 @@ public class PrototypeTest {
         originBookShelf.addBook(new Book("B", "Banana"));
         originBookShelf.addBook(new Book("C", "Cherry"));
 
-        BookShelf newBookShelf = (BookShelf) originBookShelf.clone();
+        // 생성자를 활용해 객체 복사
+        BookShelf newBookShelf = new BookShelf(originBookShelf);
 
         System.out.println("[The result of performing default] >>>");
         System.out.println("originBookShelf = " + originBookShelf);
         System.out.println("newBookShelf = " + newBookShelf);
         System.out.println();
 
+        // 원본 수정
         originBookShelf.getOriginBookShelf().get(0).setAuthor("M");
         originBookShelf.getOriginBookShelf().get(0).setTitle("Mellon");
 

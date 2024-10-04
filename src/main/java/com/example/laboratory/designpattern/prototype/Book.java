@@ -13,4 +13,10 @@ public class Book {
 
     private String author;
     private String title;
+
+    // 생성자를 활용해 객체 복사
+    public Book(Book originBook) {
+        this.author = originBook.author;
+        this.title = originBook.title;
+    }
 }
