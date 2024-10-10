@@ -9,7 +9,7 @@ import java.util.Set;
 @ToString
 public abstract class Pizza {
     // 피자의 토핑을 열거하는 열거형(enum) 선언
-    public enum Topping { HAM, MUSHROOM, ONION, PEPPERONI, SAUSAGE };
+    public enum Topping { HAM, MUSHROOM, ONION, PEPPERONI, SAUSAGE }
 
     // 피자의 토핑을 저장하는 불변집합(final Set)
     final Set<Topping> toppings;
