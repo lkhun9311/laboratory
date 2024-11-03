@@ -7,5 +7,11 @@
 /dataSources/
 /dataSources.local.xml
 # IntelliJ IDEA 폴더 및 설정 파일 무시
-.idea/
-./idea/*
+/compiler.xml
+/gradle.xml
+/jarRepositories.xml
+/laboratory.iml
+/misc.xml
+/modules.xml
+/uiDesigner.xml
+/vcs.xml
