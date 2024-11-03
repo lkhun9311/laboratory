@@ -1,13 +1,13 @@
-package com.example.laboratory;
+package com.example.designpattern;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LaboratoryApplication {
+public class DesignPatternApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LaboratoryApplication.class, args);
+		SpringApplication.run(DesignPatternApplication.class, args);
 	}
 
 }

@@ -1,6 +1,4 @@
-package com.example.laboratory.designpattern.builder;
-
-import lombok.ToString;
+package com.example.designpattern.builder;
 
 import java.util.Objects;
 

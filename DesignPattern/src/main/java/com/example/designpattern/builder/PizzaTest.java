@@ -1,4 +1,4 @@
-package com.example.laboratory.designpattern.builder;
+package com.example.designpattern.builder;
 
 public class PizzaTest {
     public static void main(String[] args) {

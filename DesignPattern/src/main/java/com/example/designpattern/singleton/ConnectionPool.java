@@ -1,4 +1,4 @@
-package com.example.laboratory.designpattern.singleton;
+package com.example.designpattern.singleton;
 
 public class ConnectionPool {
 
