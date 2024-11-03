@@ -6,3 +6,6 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+# IntelliJ IDEA 폴더 및 설정 파일 무시
+.idea/
+./idea/*
