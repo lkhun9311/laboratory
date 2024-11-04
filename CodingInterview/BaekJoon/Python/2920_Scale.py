@@ -1,3 +1,4 @@
+# https://www.acmicpc.net/problem/2920
 input1 = [1, 2, 3, 4, 5, 6, 7, 8]
 input2 = [8, 7, 6, 5, 4, 3, 2, 1]
 input3 = [8, 1, 7, 2, 6, 3, 5, 4]
