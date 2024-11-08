@@ -43,3 +43,41 @@ print(">")
 print(">", solution1(input5))
 end_time = time.time()
 print(f"Execution time for solution1: {(end_time - start_time)*1000:.6f} ms")
+
+def solution2(input):
+  result = ""
+  left_stack = []
+  right_stack = []
+
+  for el in input:
+    if el == "<":
+      if left_stack:
+        right_stack.append(left_stack.pop())
+    elif el == ">":
+      if right_stack:
+        left_stack.append(right_stack.pop())
+    elif el == "-":
+      if left_stack:
+        left_stack.pop()
+    else:
+      left_stack.append(el)
+  print("left_stack :", left_stack)
+  print("right_stack :", right_stack)
+  left_stack.extend(reversed(right_stack))
+  result = "".join(left_stack)
+
+  return result
+
+start_time = time.time()
+print("[solution2]")
+print(">", solution2(input1))
+print(">")
+print(">", solution2(input2))
+print(">")
+print(">", solution2(input3))
+print(">")
+print(">", solution2(input4))
+print(">")
+print(">", solution2(input5))
+end_time = time.time()
+print(f"Execution time for solution1: {(end_time - start_time)*1000:.6f} ms")
