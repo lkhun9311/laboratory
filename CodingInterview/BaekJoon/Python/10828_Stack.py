@@ -40,3 +40,37 @@ print(solution1(input1))
 print(solution1(input2))
 end_time = time.time()
 print(f"Execution time for solution1: {(end_time - start_time)*1000:.6f} ms")
+
+# solution1 최적화 
+def execute_command(command, stack):
+    cmd_type = command[0]
+    if cmd_type == "push":
+        stack.append(command[1])
+    elif cmd_type == "pop":
+        return "-1" if not stack else stack.pop()
+    elif cmd_type == "size":
+        return str(len(stack))
+    elif cmd_type == "empty":
+        return "1" if not stack else "0"
+    elif cmd_type == "top":
+        return "-1" if not stack else stack[-1]
+    return None
+	
+def solution2(inputs):
+    stack = []
+    result = []
+
+    for input in inputs:
+        command = input.strip().split()
+        res = execute_command(command, stack)
+        if res is not None:
+            result.append(res)
+
+    return result
+
+start_time = time.time()
+print("[solution2]")
+print(solution2(input1))
+print(solution2(input2))
+end_time = time.time()
+print(f"Execution time for solution2: {(end_time - start_time)*1000:.6f} ms")
