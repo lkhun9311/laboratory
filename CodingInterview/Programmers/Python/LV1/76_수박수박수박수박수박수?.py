@@ -18,6 +18,11 @@
 #   "수박"(2글자) 묶음이 몇 번 들어가는지(share)와
 #   홀수일 때 남는 "수" 하나(rem)를 나눠서 직접 조립한다.
 #   → 직관적이지만 짝수/홀수 경계를 손으로 처리해야 한다.
+
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
+from test_runner import run_tests
+
 def solution1(n):
     share = n // 2                         # "수박" 묶음 개수
     rem = n % 2                            # 홀수면 1(남는 "수"), 짝수면 0
@@ -77,8 +82,4 @@ test_cases = [
     (2, "수박"),
 ]
 
-for n, expected in test_cases:
-    print(f"입력: n={n}  | 기대값: {expected}")
-    print(f"  solution1 → {solution1(n)}")
-    print(f"  solution2 → {solution2(n)}")
-    print(f"  solution  → {solution(n)}")
+run_tests([solution1, solution2, solution], test_cases)

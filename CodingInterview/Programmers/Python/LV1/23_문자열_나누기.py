@@ -17,6 +17,11 @@
 # ─────────────────────────────────────────────────────────────
 # 연습
 # ─────────────────────────────────────────────────────────────
+
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
+from test_runner import run_tests
+
 def solution(s):
     return 0
 
@@ -121,8 +126,4 @@ test_cases = [
     ("aaabbaccccabba", 3),
 ]
 
-for s, expected in test_cases:
-    print(f"입력: {s!r}  | 기대값: {expected}")
-    print(f"  solution  → {solution(s)}")     # 연습용 (직접 채운 함수)
-    print(f"  solution1 → {solution1(s)}")
-    print(f"  solution2 → {solution2(s)}")
+run_tests([solution1, solution2], test_cases)

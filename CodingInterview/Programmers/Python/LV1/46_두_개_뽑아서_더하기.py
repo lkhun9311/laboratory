@@ -1,3 +1,5 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/68644?language=python3
+
 # Number of times solving questions: 1
 # 2026-06-07
 
@@ -7,6 +9,11 @@
 # 핵심 아이디어:
 #   서로 다른 두 인덱스(i, j)의 모든 쌍을 순회하며 합을 set에 누적
 #   → set이 중복된 합을 자동으로 제거해 줌
+
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
+from test_runner import run_tests
+
 def solution1(numbers):
     result = set()                                  # 중복 제거 목적으로 set 사용 (문제 요구: "한 번씩만")
     len_of_numbers = len(numbers)                   # 반복문에서 매번 len() 호출하지 않도록 미리 캐싱
@@ -54,7 +61,4 @@ test_cases = [
     ([5, 0, 2, 7],    [2, 5, 7, 9, 12]),
 ]
 
-for nums, expected in test_cases:
-    print(f"입력: {nums}  | 기대값: {expected}")
-    print(f"  solution1 → {solution1(nums)}")
-    print(f"  solution2 → {solution2(nums)}")
+run_tests([solution1, solution2], test_cases)

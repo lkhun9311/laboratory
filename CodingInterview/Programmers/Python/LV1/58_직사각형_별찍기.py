@@ -23,6 +23,11 @@
 #   "\n".join(.) → 줄들 '사이'에만 줄바꿈을 넣어 연결
 #   join은 요소 사이에만 구분자를 넣으므로 맨 끝에 불필요한 \n이 안 붙는다.
 #   문자열 += 누적(불변 문자열 매번 재생성)의 비효율도 피할 수 있다.
+
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
+from test_runner import run_tests
+
 def solution(n, m):
     return "\n".join(["*" * n] * m)
 
@@ -47,16 +52,13 @@ def solution(n, m):
 # 테스트
 # ─────────────────────────────────────────────────────────────
 test_cases = [
-    (5, 3),
-    (1, 1),
-    (3, 1),
-    (1, 3),
+    ((5, 3), "*****\n*****\n*****"),
+    ((1, 1), "*"),
+    ((3, 1), "***"),
+    ((1, 3), "*\n*\n*"),
 ]
 
-for n, m in test_cases:
-    print(f"입력: n={n}, m={m}")
-    print(solution(n, m))
-    print("-" * 10)
+run_tests(solution, test_cases)
 
 # 제출용(표준입력): 채점 환경에서는 아래 두 줄로 입력을 받아 출력한다.
 # n, m = map(int, input().split())

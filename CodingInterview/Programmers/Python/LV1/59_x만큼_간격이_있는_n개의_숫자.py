@@ -1,3 +1,5 @@
+# https://school.programmers.co.kr/learn/courses/30/lessons/12954?language=python3
+
 # Number of times solving questions: 1
 # 2026-06-09
 
@@ -7,6 +9,11 @@
 # 핵심 아이디어:
 #   1부터 n까지 i를 순회하면서 i*x를 결과 리스트에 차례로 append
 #   → 가장 직관적인 형태: "x의 1배, 2배, ..., n배"를 순서대로 생성
+
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
+from test_runner import run_tests
+
 def solution1(x, n):
     result = []                            # 결과를 담을 빈 리스트
     for i in range(1, n + 1):              # i: 1 ~ n (배수 인덱스)
@@ -44,7 +51,4 @@ test_cases = [
     ((-4, 2), [-4, -8]),
 ]
 
-for (tx, tn), expected in test_cases:
-    print(f"입력: x={tx}, n={tn}  | 기대값: {expected}")
-    print(f"  solution1 → {solution1(tx, tn)}")
-    print(f"  solution2 → {solution2(tx, tn)}")
+run_tests([solution1, solution2], test_cases)

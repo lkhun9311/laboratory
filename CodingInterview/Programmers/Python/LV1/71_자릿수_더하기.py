@@ -17,6 +17,11 @@
 #   N을 문자열로 바꾸면 각 글자가 곧 자릿수가 된다.
 #   글자를 하나씩 int로 바꿔 sum으로 한 번에 합산한다.
 #   → 누적 변수와 for문 없이 한 줄로 끝나는 가독성 좋은 표현.
+
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
+from test_runner import run_tests
+
 def solution(N):
     return sum(int(i) for i in str(N))
 
@@ -64,7 +69,4 @@ test_cases = [
     (1000, 1),
 ]
 
-for n, expected in test_cases:
-    print(f"입력: N={n}  | 기대값: {expected}")
-    print(f"  solution  → {solution(n)}")
-    print(f"  solution2 → {solution2(n)}")
+run_tests([solution, solution2], test_cases)

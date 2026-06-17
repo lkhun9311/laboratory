@@ -18,6 +18,11 @@
 #   lower()로 대소문자를 통일하면 'P'/'p'를 따로 셀 필요가 없다.
 #   count()로 'p'와 'y'의 개수를 각각 구해 같은지 비교한 결과를 그대로 반환.
 #   p, y가 0개인 경우도 0 == 0 → True 라서 별도 분기가 필요 없다.
+
+import sys, pathlib
+sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
+from test_runner import run_tests
+
 def solution(input):
     input = input.lower()
     count_p = input.count("p")
@@ -51,6 +56,4 @@ test_cases = [
     ("ppyy", True),
 ]
 
-for s, expected in test_cases:
-    print(f"입력: {s!r}  | 기대값: {expected}")
-    print(f"  solution → {solution(s)}")
+run_tests(solution, test_cases)
