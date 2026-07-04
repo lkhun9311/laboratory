@@ -8,8 +8,9 @@ sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_run
 from test_runner import run_tests
 
 def solution(n):
-    # TODO: 직접 풀어보세요
-    pass
+    for x in range(2, n):
+        if n % x == 1:
+            return x
 
 # ─────────────────────────────────────────────────────────────
 # 테스트
