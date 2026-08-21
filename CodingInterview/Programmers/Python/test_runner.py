@@ -31,6 +31,13 @@ def _print_one(label, fn, test_cases):
     """함수 하나에 대한 결과 표를 함수 이름(label)과 함께 출력한다."""
     headers = ["OK", "INPUT", "EXPECTED", "ACTUAL"]
 
+    # 아직 입출력 예를 안 채운 스텁 파일은 여기로 온다. 표를 만들려 하면 터지므로 먼저 걸러낸다.
+    if not test_cases:
+        print(f"[ {label} ]")
+        print("  TODO: test_cases 가 비어 있습니다. 문제의 입출력 예를 채워 넣으세요.")
+        print("        인자가 여러 개면 반드시 tuple 로 감쌉니다.")
+        return False
+
     # 표 행 데이터: (mark, [셀, ...]) — 전부 repr이라 ASCII 문자열
     rows = []
     pass_count = 0
