@@ -8,19 +8,32 @@
 #include "../test_runner.h"
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <unordered_map>
-#include <unordered_set>
+#include <set>
 #include <numeric>
+#include <algorithm>
+#include <iterator>
 using namespace std;
 
 int solution(vector<int> numbers) {
     // 규칙. 0~9 중 numbers에 없는 숫자들의 합.
-    //      "없는 것들의 합 = 전부의 합 - 있는 것들의 합" 이므로 집합 연산이 필요 없다.
-    //      numbers의 원소가 서로 다르다는 제한이 중복 걱정을 없애준다.
-    const int SUM_OF_0_TO_9 = 45;   // 0+1+2+...+9
+    //      numbers의 원소는 서로 다르므로 개수를 셀 필요가 없다 -> 집합으로 충분하다.
 
-    return SUM_OF_0_TO_9 - accumulate(numbers.begin(), numbers.end(), 0);
+    // 1. 주어진 것과 0~9 전부를 각각 집합으로 만든다.
+    //    C++에는 range()가 없으므로 0~9는 직접 채운다.
+    set<int> given_digits(numbers.begin(), numbers.end());
+    set<int> all_digits;
+    for (int i = 0; i <= 9; i++) all_digits.insert(i);
+
+    // 2. 차집합 = 없는 것들. C++에는 집합 뺄셈 연산자가 없어 set_difference를 쓴다.
+    //    결과를 받을 그릇을 미리 만들고 back_inserter로 채워 넣는다.
+    //    set_difference는 양쪽이 정렬돼 있어야 하므로 unordered_set이 아니라 set이다.
+    vector<int> missing_digits;
+    set_difference(all_digits.begin(), all_digits.end(),
+                   given_digits.begin(), given_digits.end(),
+                   back_inserter(missing_digits));
+
+    // 3. 없는 것들의 합.
+    return accumulate(missing_digits.begin(), missing_digits.end(), 0);
 }
 
 int main() {
