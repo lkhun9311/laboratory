@@ -16,7 +16,7 @@ using namespace std;
 
 double solution(vector<int> arr) {
     double arr_size = arr.size();
-    double arr_sum = accumulate(arr.begin(), arr.end(), 0);
+    double arr_sum = accumulate(arr.begin(), arr.end(), 0LL);
     return arr_sum / arr_size;
 }
 
