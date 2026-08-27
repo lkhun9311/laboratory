@@ -6,11 +6,10 @@
 // 2026-08-27
 
 #include "../test_runner.h"
+// 아래는 프로그래머스 제출 코드와 동일하게 유지한다 (include 누락을 로컬에서도 잡기 위해)
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <unordered_map>
-#include <unordered_set>
 using namespace std;
 
 vector<int> solution(vector<int> arr) {

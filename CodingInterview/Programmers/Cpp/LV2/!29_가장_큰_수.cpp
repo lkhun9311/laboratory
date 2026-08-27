@@ -6,11 +6,11 @@
 // 2026-00-00
 
 #include "../test_runner.h"
+// 아래는 프로그래머스 제출 코드와 동일하게 유지한다.
+// 필요한 헤더는 직접 추가할 것 (<algorithm> sort/min_element, <numeric> accumulate,
+// <sstream> stringstream, <unordered_map>, <unordered_set>, <set>, <stdexcept> runtime_error)
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <unordered_map>
-#include <unordered_set>
 using namespace std;
 
 // TODO: 프로그래머스 C++ 답안지 스켈레톤의 시그니처를 그대로 옮겨 적을 것.
