@@ -16,15 +16,16 @@ using namespace std;
 string solution(string phone_number) {
     // 규칙. 뒤 4자리만 남기고 앞은 전부 *로 가린다. 길이가 4 이상이라 가릴 개수는 0 이상이다.
     //      C++에는 음수 인덱스가 없으므로 "뒤 4자리"의 시작 칸을 직접 계산한다.
-    int phone_number_size = phone_number.size();
+    int number_length = phone_number.size();
 
     // string(개수, 글자) 는 그 글자를 개수만큼 이어 붙인다. 파이썬 "*" * n 에 대응.
-    string tmp_phone_number = string(phone_number_size - 4, '*');
+    string masked_part = string(number_length - 4, '*');
 
-    // substr(시작) 은 개수를 생략하면 끝까지. 가린 개수와 시작 칸이 같아야 앞뒤가 맞는다.
-    string last_4_of_phone_number = phone_number.substr(phone_number_size - 4);
+    // substr(시작) 은 개수를 생략하면 끝까지.
+    // 가린 개수와 남길 부분의 시작 칸이 같아야 앞뒤가 맞는다.
+    string visible_part = phone_number.substr(number_length - 4);
 
-    return tmp_phone_number + last_4_of_phone_number;
+    return masked_part + visible_part;
 }
 
 int main() {

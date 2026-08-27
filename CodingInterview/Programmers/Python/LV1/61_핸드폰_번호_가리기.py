@@ -9,9 +9,9 @@ from test_runner import run_tests
 
 def solution(phone_number):
     # 규칙. 뒤 4자리만 남기고 앞은 전부 *로 가린다. 길이는 4 이상이라 가릴 개수는 0 이상이다.
-    tmp_number_size = len(phone_number) - 4
+    masked_length = len(phone_number) - 4
 
-    return "*" * tmp_number_size + phone_number[-4:]
+    return "*" * masked_length + phone_number[-4:]
 
 # ─────────────────────────────────────────────────────────────
 # 테스트
