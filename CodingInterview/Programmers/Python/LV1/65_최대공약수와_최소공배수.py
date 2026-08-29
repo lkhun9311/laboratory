@@ -12,9 +12,12 @@ import math
 
 def solution(n, m):
     # 규칙. [최대공약수, 최소공배수] 를 돌려준다.
-    #      math.lcm 은 Python 3.9+ 이므로, 채점 환경이 낮으면
-    #      gcd 만 쓰고 n * m // gcd 로 계산해도 된다 (파이썬 정수는 크기 제한이 없다).
-    return [math.gcd(n, m), math.lcm(n, m)]
+    #      lcm = n * m // gcd 인데, 나눗셈을 먼저 해서 중간값을 줄인다.
+    #      파이썬은 정수 크기 제한이 없어 필수는 아니지만 C++ 버전과 식을 맞춰 둔다.
+    #      (math.lcm 은 Python 3.9+ 라 채점 환경에 따라 못 쓸 수 있다)
+    gcd = math.gcd(n, m)
+
+    return [gcd, (n//gcd)*m]
 
 # ─────────────────────────────────────────────────────────────
 # 테스트
