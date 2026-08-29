@@ -1,23 +1,41 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/12924?language=python3
 # 유형: 구현
 
-# Number of times solving questions: 0
-# 2026-00-00
+# Number of times solving questions: 1
+# 2026-08-29
 
 import sys, pathlib
 sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
 from test_runner import run_tests
 
-# TODO: 매개변수는 프로그래머스 답안지 스켈레톤 그대로 맞출 것
-def solution():
-    # TODO: 직접 풀어보세요
-    pass
+def solution(n):
+    # 규칙. n을 연속한 자연수들의 합으로 쓰는 방법의 수.
+    #      시작 숫자를 1부터 n//2까지 바꿔가며 전부 시도한다. (완전탐색)
+    #      n 자기 자신(항이 하나뿐인 경우)은 미리 1로 세어둔다.
+    count = 1
+
+    for start in range(1, n//2 + 1):
+        total = start
+        number = start
+
+        while total < n:
+            number += 1
+            total += number
+
+        if total == n:
+            count += 1
+
+    return count
 
 # ─────────────────────────────────────────────────────────────
 # 테스트
 # ─────────────────────────────────────────────────────────────
-# TODO: 입출력 예를 채울 것. 인자가 여러 개면 반드시 tuple로 감싼다.
 test_cases = [
+    (15, 4),
+    (1, 1),
+    (2, 1),
+    (3, 2),
+    (10, 2),
 ]
 
 run_tests(solution, test_cases)
