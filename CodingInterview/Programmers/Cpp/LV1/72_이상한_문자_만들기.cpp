@@ -8,9 +8,7 @@
 #include "../test_runner.h"
 // 아래는 프로그래머스 제출 코드와 동일하게 유지한다.
 #include <string>
-#include <vector>
 #include <cctype>       // toupper, tolower
-#include <sstream>      // stringstream. 헤더 이름은 <stringstream>이 아니다
 using namespace std;
 
 string solution(string s) {
@@ -18,52 +16,29 @@ string solution(string s) {
     // 규칙 2. 인덱스는 단어마다 0부터 다시 센다.
     // 규칙 3. 공백은 원래 자리에 그대로 두며, 연속 공백도 개수까지 보존한다.
 
-    string answer = "";
-    vector<string> converted_words;
-    stringstream ss(s);
-    string word;
+    // 문자열을 단어로 쪼개지 않고, 카운터 하나를 들고 한 번만 훑는다.
+    // 쪼개는 방식(stringstream + getline)은 join을 직접 짜야 하고,
+    // 무엇보다 getline이 "문자열이 구분자로 끝날 때 마지막 빈 조각을 만들지 않아"
+    // 끝 공백이 사라진다(Python split(" ")과 다른 점). 쪼개지 않으면 그 함정이 아예 생기지 않는다.
+    int index = 0;
 
-    // 구분자를 ' '로 명시한 getline은 연속 공백 사이의 빈 조각을 그대로 남긴다.
-    // ss >> word 를 쓰면 연속 공백을 합쳐버려 오답이 된다 (Python의 인자 없는 split()과 같은 함정). (규칙 3)
-    // getline은 조각을 하나씩 읽고 스트림을 반환하므로 while로 돈다.
-    while (getline(ss, word, ' ')) {
-        // 단어 단위로 index를 새로 0부터 세므로 "단어마다 리셋"이 저절로 처리된다. (규칙 2)
-        // C++에는 enumerate가 없어 카운터를 직접 증가시킨다.
-        int index = 0;
-        string converted = "";
-
-        for (char ch : word) {
-            if (index%2 == 0) {
-                char up = toupper(ch);      // toupper는 int를 반환하므로 char로 받아둔다
-                converted += up;
-            } else {
-                char lower = tolower(ch);
-                converted += lower;
-            }
-            index++;
+    // 매개변수 s는 이미 호출자 값의 복사본이므로, 새 문자열을 만들지 않고 제자리에서 고친다.
+    // char&(참조)로 받아야 대입이 s에 반영된다. char로 받으면 사본이라 원본이 안 바뀐다.
+    for (char& ch : s) {
+        // 공백은 손대지 않고 카운터만 0으로 되돌린다.
+        // 그러면 "단어마다 인덱스 리셋"이 저절로 처리되고 (규칙 2),
+        // 공백을 지우지 않으므로 연속 공백도 개수 그대로 남는다. (규칙 3)
+        if (ch == ' ') {
+            index = 0;
+            continue;
         }
 
-        converted_words.push_back(converted);
+        // toupper/tolower는 int를 반환하므로 char로 명시적으로 되돌린다. (규칙 1)
+        ch = (char)(index % 2 == 0 ? toupper(ch) : tolower(ch));
+        index++;
     }
 
-    // C++에는 join이 없어 직접 이어붙인다.
-    // 구분자를 "각 원소 뒤"가 아니라 "첫 번째를 제외한 각 원소 앞"에 넣어야 끝에 여분이 생기지 않는다.
-    int n = converted_words.size();
-    for (int i=0; i<n; i++) {
-        if (i>0) {
-            answer += ' ';
-        }
-        answer += converted_words[i];
-    }
-
-    // getline은 문자열이 구분자로 끝날 때 마지막 빈 조각을 만들지 않는다 (Python split(" ")과 다른 점).
-    // 항상 정확히 하나가 모자라므로, 끝이 공백이면 공백 하나를 되돌려 놓는다. (규칙 3)
-    // s의 길이가 1 이상임이 보장되므로 back() 호출은 안전하다.
-    if (s.back() == ' ') {
-        answer += ' ';
-    }
-
-    return answer;
+    return s;
 }
 
 int main() {
