@@ -345,6 +345,8 @@ Python으로 이미 푼 문제를 C++로 옮기며 얻은 것. **알고리즘이
 | (문자열은 불변이라 불가) | `for (char& ch : s)` — **참조로 받으면 제자리 수정.** `char ch` 는 사본이라 원본이 안 바뀐다 | 72 |
 | `x = ""` 로 문자 담기 | 글자 하나는 **`char`**. `string base; base = ch;` 는 되지만 **`base == ch` 는 컴파일 에러** | 23 문자열 나누기 |
 | `lst[-1]` | **음수 인덱스 없음.** `v.back()` 또는 `int n = v.size();` 후 `v[n-1]` | 28 햄버거 만들기 |
+| `lst.index(x)` | `auto it = find(v.begin(), v.end(), x);` 후 **`distance(v.begin(), it)`** (`<algorithm>`). `find` 는 **이터레이터**를 돌려준다 | 78 서울에서 김서방 찾기 |
+| `str(n)` / f-string | **`to_string(n)`.** C++에는 문자열 포매팅이 없어 `+` 로 이어붙인다 | 78 |
 | `del lst[-4:]` | `v.resize(n - 4)` (또는 `pop_back()` 4번). `resize` 는 **개수를 그 수로 맞춘다** | 28 |
 | `lst[-4:] == [1,2,3,1]` | 슬라이스 비교 없음. **네 인덱스를 직접 비교** | 28 |
 | `True` / `False` | `true` / `false` — **소문자.** 대문자는 존재하지 않는 이름 | 79 |
