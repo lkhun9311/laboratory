@@ -369,6 +369,7 @@ Python으로 이미 푼 문제를 C++로 옮기며 얻은 것. **알고리즘이
 | **`//`** | C++에서는 **주석**. `x // 2` 쓰면 뒷부분이 통째로 사라짐 | 정수 나눗셈은 `/` 하나로 충분 |
 | **부호 비교** | `size()`(unsigned) `>= k`(int) 에서 k가 음수면 거대한 수로 변환 → `2 >= -1`이 **거짓** | `int n = x.size();` 로 받아두고 비교 |
 | **return 누락** | Python은 `None`, C++은 **미정의 동작**. 테스트가 통과해도 운일 뿐 | 마지막에 `throw` 또는 명시적 return |
+| ↑ 컴파일러가 알려준다 (LV1 35) | `warning: control reaches end of non-void function [-Wreturn-type]`. **로직상 도달 못 해도 컴파일러는 증명할 수 없다** | 기본값을 둔다면 **답이 될 수 없는 값**으로. `return n-1;` 처럼 답이 될 수 있는 값은 버그를 가린다 |
 | **`unordered_map` 순서** | Python dict는 삽입 순서 보장, C++ `unordered_map`은 **순서 없음** | 결과는 원본 목록 순서로 다시 뽑기 |
 
 ### 이름 충돌 — `using namespace std;` 의 대가
