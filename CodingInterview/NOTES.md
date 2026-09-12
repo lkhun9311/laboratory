@@ -29,6 +29,36 @@
 
 ## LV2
 
+### 43 더 맵게 (2026-09-12, C++ 우선)
+- ① 처음 떠올린 방법 : 최소 힙에서 둘을 꺼내 섞고 다시 넣기. **흐름 도식을 먼저 그리고 시작**
+- ② 실제 정답 방법 : 같음
+- ③ 사용한 자료구조 : **최소 힙** `priority_queue<long long, vector<long long>, greater<long long>>`. `O(n log n)`
+- ④ 틀린 이유 : **두 번. 둘 다 타입 문제.**
+  - 힙 원소를 `int` 로 둠 → `new = first + second*2` 가 30억까지 가는데 `int` 는 21억
+  - **힙만 `long long` 으로 바꾸고 꺼내는 변수는 `int` 로 둠** → 여전히 오답
+
+- **배운 것 1 — `priority_queue` 는 기본이 최대 힙이다.**
+  Python `heapq` 가 기본 **최소** 힙인 것과 **정반대**다.
+  최소 힙은 `priority_queue<T, vector<T>, greater<T>>` — `greater` 를 넘기려면 컨테이너 타입도 같이 적어야 한다.
+
+- **배운 것 2 — 그릇이 아니라 "계산이 어느 타입에서 일어나는가"다.**
+  `long long` 힙에 담아도 `int a = pq.top();` 로 꺼내 `int` 로 계산하면 **거기서 이미 넘친다.**
+  힙은 결과를 보관할 뿐 계산을 대신해 주지 않는다. 59번(`vector<long long>` 에 담아도 `int*int`)과 같은 구조.
+  실측: 1,000,000 짜리 원소 **128개 + K=10억** 에서 `int` 계산은 `-1`, 정답은 `127`.
+  값이 섞을 때마다 약 3배씩 자라 `1e6 * 3^7 ≈ 21.9억` 에서 넘는다.
+  **주어진 예제와 작은 랜덤 200,000건은 전부 통과한다** — 채점 전까지 안 드러난다.
+
+- **배운 것 3 — `auto x = pq.top();` 이 이 사고를 구조적으로 막는다.**
+  `auto` 는 참조와 `const` 를 떼고 값 타입으로 추론하므로 컨테이너 타입이 바뀌면 변수도 따라온다.
+  단 **`auto&` 는 금지** — 힙 내부를 가리키는 참조라 `pop()` 뒤에는 죽은 자리를 읽는다.
+  (35번의 `for (const auto& x : waiting)` 는 순회하며 읽기만 하므로 `&` 가 맞다.
+   **"꺼낸 뒤 컨테이너를 건드리는가"** 가 기준이다.)
+
+- `-1` 판정은 "힙이 빔"이 아니라 **"원소가 2개 미만"** 이다.
+  섞을 때마다 둘이 나가고 하나가 들어와 크기가 1씩 줄므로 힙이 완전히 비는 경우는 없다.
+
+---
+
 ### 35 프로세스 (2026-09-12, C++ 우선)
 - ① 처음 떠올린 방법 : 덱에 `(우선순위, 원래 인덱스)` 를 담고, 맨 앞이 최고가 아니면 맨 뒤로 보내기
 - ② 실제 정답 방법 : 같음
@@ -458,6 +488,10 @@ Python으로 이미 푼 문제를 C++로 옮기며 얻은 것. **알고리즘이
 | `-(-a // b)` (올림) | **`(a + b - 1) / b`** — 둘 다 정수만 쓰는 올림 나눗셈 관용구 | LV2 34 기능개발 |
 | `deque` / `popleft()` | `#include <deque>`, `d.front()` 로 **보고** `d.pop_front()` 로 **버린다**. **`pop` 은 값을 돌려주지 않는다** | LV2 35 프로세스 |
 | `d.rotate(-1)` | `auto f = d.front(); d.pop_front(); d.push_back(f);` | LV2 35 |
+| `heapq` (기본 **최소** 힙) | `priority_queue<T>` 는 기본 **최대** 힙. 최소 힙은 **`priority_queue<T, vector<T>, greater<T>>`** | LV2 43 더 맵게 |
+| `heapq.heapify(v)` | 범위 생성자 `priority_queue<...> pq(v.begin(), v.end());` — 하나씩 push 보다 빠르다 | LV2 43 |
+| `heappop(v)` | `pq.top()` 으로 **보고** `pq.pop()` 으로 **버린다** (queue 와 동일) | LV2 43 |
+| (타입 신경 안 씀) | **`auto x = pq.top();`** 로 받으면 컨테이너 타입이 바뀌어도 따라온다. **`auto&` 는 금지** — `pop()` 뒤 죽은 자리를 가리킨다 | LV2 43 |
 | `max(x[0] for x in d)` | 컨테이너를 직접 훑어 `max_priority = max(max_priority, p.first);` — 임시 vector 를 만들지 않는다 | LV2 35 |
 | `sorted(v, key=lambda x: k(x))` | **`sort(v.begin(), v.end(), [](const T& a, const T& b){ return ...; })`** — key(무엇으로)가 아니라 **순서(누가 먼저인가)** 를 답한다 | 82 문자열 내 마음대로 정렬하기 |
 | `key=(x[n], x)` 다중 기준 | 비교 함수에 `if (a[n] != b[n]) return a[n] < b[n]; return a < b;` — **1순위로 판가름 나면 거기서 끝** | 82 |
@@ -498,6 +532,7 @@ Python으로 이미 푼 문제를 C++로 옮기며 얻은 것. **알고리즘이
 | **부호 비교** | `size()`(unsigned) `>= k`(int) 에서 k가 음수면 거대한 수로 변환 → `2 >= -1`이 **거짓** | `int n = x.size();` 로 받아두고 비교 |
 | **return 누락** | Python은 `None`, C++은 **미정의 동작**. 테스트가 통과해도 운일 뿐 | 마지막에 `throw` 또는 명시적 return |
 | ↑ 컴파일러가 알려준다 (LV1 35) | `warning: control reaches end of non-void function [-Wreturn-type]`. **로직상 도달 못 해도 컴파일러는 증명할 수 없다** | 기본값을 둔다면 **답이 될 수 없는 값**으로. `return n-1;` 처럼 답이 될 수 있는 값은 버그를 가린다 |
+| ↑ 그릇이 아니라 **계산 위치** (LV2 43) | `priority_queue<long long>` 에 담아도 `int a = pq.top();` 로 꺼내 `int` 로 계산하면 **거기서 이미 넘친다** | **꺼내는 변수와 계산식까지** 전부 큰 타입으로. `auto` 로 받으면 자동으로 따라온다 |
 | **`unordered_map` 순서** | Python dict는 삽입 순서 보장, C++ `unordered_map`은 **순서 없음** | 결과는 원본 목록 순서로 다시 뽑기 |
 
 ### 이름 충돌 — `using namespace std;` 의 대가
