@@ -10,7 +10,11 @@ if [ $# -lt 1 ]; then
 fi
 
 src="$1"; shift
-out="$(mktemp -d)/a"
+# /tmp 는 메모리(tmpfs)라서, 컴파일한 바이너리를 담은 임시 디렉터리를 끝날 때 지운다.
+# 채점이 실패해도 지워지고, 종료 코드는 채점 결과 그대로 남는다.
+dir="$(mktemp -d)"
+trap 'rm -rf "$dir"' EXIT
+out="$dir/a"
 
 g++ -std=c++20 -O2 -Wall -Wextra -Wno-unused-parameter "$src" -o "$out" "$@"
 "$out"
