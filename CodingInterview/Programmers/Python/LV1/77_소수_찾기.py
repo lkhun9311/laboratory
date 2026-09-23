@@ -10,12 +10,6 @@ from test_runner import run_tests
 
 import math
 
-def is_prime(number):
-    for i in range(2, number):
-        if number%i == 0:
-            return False
-    return True
-
 def solution(n):
     visited = [False for _ in range(n+1)]
     visited[0] = True
@@ -25,11 +19,11 @@ def solution(n):
     for number in range(2, sqrt_number+1):
         if visited[number]:
             continue
-        if is_prime(number):
-            for i in range(number, n+1):
+        for i in range(number, n+1):
                 if i*number>n:
                     break
                 visited[i*number] = True
+
     return visited.count(False)
 
 # ─────────────────────────────────────────────────────────────
