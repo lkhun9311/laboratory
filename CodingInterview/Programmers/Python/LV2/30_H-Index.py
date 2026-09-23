@@ -11,7 +11,7 @@ from test_runner import run_tests
 def solution(citations):
     h = 0
     n = len(citations)
-    result = []
+    result = 0
     while h<=n:
         count = 0
 
@@ -20,11 +20,11 @@ def solution(citations):
                 count += 1
 
         if count >= h:
-            result.append(h)
+            result = h
 
         h += 1
 
-    return max(result)
+    return result
 
 # ─────────────────────────────────────────────────────────────
 # 테스트
