@@ -1,15 +1,26 @@
 # https://school.programmers.co.kr/learn/courses/30/lessons/388351?language=python3
 
-# Number of times solving questions: 0
-# 2026-00-00
+# Number of times solving questions: 1
+# 2026-11-18
 
 import sys, pathlib
 sys.path.append(str(pathlib.Path(__file__).resolve().parent.parent))  # test_runner 경로
 from test_runner import run_tests
 
 def solution(schedules, timelogs, startday):
-    # TODO: 직접 풀어보세요
-    pass
+    answer = 0
+    to_min = lambda t: (t//100)*60 + t%100
+
+    for schedule, timelog in zip(schedules, timelogs):
+        if startday != 7:
+            new_timelog = timelog[:6-startday] + timelog[8-startday:]
+        else:
+            new_timelog = timelog[1:-1]
+
+        if all(to_min(t) <= to_min(schedule)+10 for t in new_timelog):
+            answer += 1
+
+    return answer
 
 # ─────────────────────────────────────────────────────────────
 # 테스트
