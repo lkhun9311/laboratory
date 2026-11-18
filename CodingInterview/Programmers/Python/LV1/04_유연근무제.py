@@ -12,10 +12,12 @@ def solution(schedules, timelogs, startday):
     to_min = lambda t: (t//100)*60 + t%100
 
     for schedule, timelog in zip(schedules, timelogs):
-        if startday != 7:
-            new_timelog = timelog[:6-startday] + timelog[8-startday:]
-        else:
-            new_timelog = timelog[1:-1]
+        new_timelog = []
+        for k, time in enumerate(timelog):
+            day = (startday - 1 + k) %7
+            if day >= 5:
+                continue
+            new_timelog.append(time)
 
         if all(to_min(t) <= to_min(schedule)+10 for t in new_timelog):
             answer += 1
